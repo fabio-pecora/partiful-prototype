@@ -2,8 +2,8 @@
 export function PreviewPanel() {
   return (
     <div className="previewStack">
-      <div className="coverCard">
-        <div className="coverImg">
+      <div className="coverCard coverCardTight">
+        <div className="coverImg coverImgFull">
           <div className="coverText">MOVIE{"\n"}AWARDS</div>
         </div>
 
