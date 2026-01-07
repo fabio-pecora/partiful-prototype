@@ -1,9 +1,10 @@
+// components/PreviewPanel.tsx
 export function PreviewPanel() {
   return (
     <div className="previewStack">
       <div className="coverCard">
         <div className="coverImg">
-          <div className="coverText">MOVIE AWARDS</div>
+          <div className="coverText">MOVIE{"\n"}AWARDS</div>
         </div>
 
         <button className="editPill" type="button">
@@ -23,19 +24,25 @@ export function PreviewPanel() {
           </button>
         </div>
 
-        <div className="rsvpButtons">
-          <button className="rsvpBtn" type="button">
-            <div className="rsvpEmoji">👍</div>
+        <div className="rsvpBody">
+          <button className="rsvpOption" type="button" aria-label="Going">
+            <div className="rsvpCircle">
+              <span className="rsvpEmoji">👍</span>
+            </div>
             <div className="rsvpLabel">Going</div>
           </button>
 
-          <button className="rsvpBtn" type="button">
-            <div className="rsvpEmoji">😬</div>
+          <button className="rsvpOption" type="button" aria-label="Maybe">
+            <div className="rsvpCircle">
+              <span className="rsvpEmoji">🤔</span>
+            </div>
             <div className="rsvpLabel">Maybe</div>
           </button>
 
-          <button className="rsvpBtn" type="button">
-            <div className="rsvpEmoji">😢</div>
+          <button className="rsvpOption" type="button" aria-label="Can't Go">
+            <div className="rsvpCircle">
+              <span className="rsvpEmoji">😢</span>
+            </div>
             <div className="rsvpLabel">Can't Go</div>
           </button>
         </div>

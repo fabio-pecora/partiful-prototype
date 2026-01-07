@@ -3,6 +3,26 @@ import { Icon } from "./Icon";
 
 const STYLE_CHIPS = ["Classic", "Eclectic", "Fancy", "Literary", "Digital", "Elegant"];
 
+function RowButton({
+  icon,
+  label,
+  dim = false,
+}: {
+  icon: Parameters<typeof Icon>[0]["name"];
+  label: string;
+  dim?: boolean;
+}) {
+  return (
+    <button className={dim ? "rowItem rowItemDim" : "rowItem"} type="button">
+      <span className="rowIcon">
+        <Icon name={icon} />
+      </span>
+      <span className="rowText">{label}</span>
+    </button>
+  );
+}
+
+// components/EditorPanel.tsx
 export function EditorPanel() {
   const [activeStyle, setActiveStyle] = useState<string>("Literary");
   const [canInvite, setCanInvite] = useState<boolean>(true);
@@ -12,9 +32,25 @@ export function EditorPanel() {
     []
   );
 
+  const RowSegment = ({
+    children,
+    pos,
+  }: {
+    children: React.ReactNode;
+    pos?: "first" | "mid" | "last";
+  }) => {
+    const cls =
+      pos === "first"
+        ? "rowSegment rowSegmentFirst"
+        : pos === "last"
+        ? "rowSegment rowSegmentLast"
+        : "rowSegment";
+    return <div className={cls}>{children}</div>;
+  };
+
   return (
     <div className="editorStack">
-      {/* 1) Event title + tags (ONE standalone container) */}
+      {/* Title + style chips (one glass block) */}
       <div className="glassBlock glassHeader">
         <h1 className="eventTitle">Untitled Event</h1>
 
@@ -30,15 +66,12 @@ export function EditorPanel() {
         </div>
       </div>
 
-      {/* 2) Set a date (ITS OWN container, not attached to title) */}
-      <button className="glassBlock glassRow glassDate" type="button">
-        <span className="rowIcon">
-          <Icon name="calendar" />
-        </span>
-        <span className="rowText">Set a date...</span>
+      {/* Set a date (separate glass block) */}
+      <button className="glassBlock dateBlock" type="button">
+        <div className="dateText">Set a date...</div>
       </button>
 
-      {/* 3) Helper line (NO container) */}
+      {/* Helper line (no container) */}
       <div className="helperLinePlain">
         <span className="helperDim">Can't decide when?</span>
         <a className="pollLink" href="#">
@@ -46,71 +79,68 @@ export function EditorPanel() {
         </a>
       </div>
 
-      {/* 4) Rows (EACH its own container, not merged) */}
-      <div className="glassBlock glassRow hostRow">
-        <div className="hostLeft">
-          <span className="rowIcon">
-            <Icon name="crown" />
-          </span>
+      {/* Host + detail rows (each row has its own glassy blurred segment) */}
+      <div className="rowGroup">
+        <RowSegment pos="first">
+          <div className="rowHost">
+            <div className="rowHostLeft">
+              <span className="rowIcon">
+                <Icon name="crown" />
+              </span>
 
-          <div className="hostMeta">
-            <div className="hostLabel">Hosted by (optional) host nickname</div>
+              <div className="hostMeta">
+                <div className="hostLabel">Hosted by (optional) host nickname</div>
 
-            <div className="hostPerson">
-              <div className="avatar">
-                <span>F</span>
+                <div className="hostPerson">
+                  <div className="avatar">
+                    <span>F</span>
+                  </div>
+                  <div className="hostName">Fabio</div>
+                </div>
               </div>
-              <div className="hostName">Fabio</div>
             </div>
+
+            <button className="cohostBtn" type="button">
+              + Add cohosts
+            </button>
           </div>
-        </div>
+        </RowSegment>
 
-        <button className="cohostBtn" type="button">
-          + Add cohosts
-        </button>
+        <RowSegment>
+          <RowButton icon="pin" label="Location" dim />
+        </RowSegment>
+
+        <RowSegment>
+          <RowButton icon="users" label="Unlimited spots" dim />
+        </RowSegment>
+
+        <RowSegment>
+          <RowButton icon="bolt" label="Cost per person" dim />
+        </RowSegment>
+
+        <RowSegment pos="last">
+          <div className="rowItem rowToggle">
+            <div className="toggleLeft">
+              <span className="rowIcon">
+                <Icon name="spark" />
+              </span>
+              <span className="rowText">Guests can invite friends</span>
+            </div>
+
+            <button
+              className={canInvite ? "switch switchOn" : "switch"}
+              type="button"
+              aria-pressed={canInvite}
+              aria-label="toggle"
+              onClick={() => setCanInvite((v) => !v)}
+            >
+              <span className="switchKnob" />
+            </button>
+          </div>
+        </RowSegment>
       </div>
 
-      <button className="glassBlock glassRow" type="button">
-        <span className="rowIcon">
-          <Icon name="pin" />
-        </span>
-        <span className="rowText">Location</span>
-      </button>
-
-      <button className="glassBlock glassRow" type="button">
-        <span className="rowIcon">
-          <Icon name="users" />
-        </span>
-        <span className="rowText">Unlimited spots</span>
-      </button>
-
-      <button className="glassBlock glassRow" type="button">
-        <span className="rowIcon">
-          <Icon name="bolt" />
-        </span>
-        <span className="rowText">Cost per person</span>
-      </button>
-
-      <div className="glassBlock glassRow toggleRow">
-        <div className="toggleLeft">
-          <span className="rowIcon">
-            <Icon name="spark" />
-          </span>
-          <span className="rowText">Guests can invite friends</span>
-        </div>
-
-        <button
-          className={canInvite ? "switch switchOn" : "switch"}
-          type="button"
-          aria-pressed={canInvite}
-          aria-label="toggle"
-          onClick={() => setCanInvite((v) => !v)}
-        >
-          <span className="switchKnob" />
-        </button>
-      </div>
-
-      {/* 5) Action pills (keep as-is) */}
+      {/* Action pills */}
       <div className="miniChips">
         {miniChips.map((t) => (
           <button key={t} className="miniChip" type="button">
@@ -119,9 +149,16 @@ export function EditorPanel() {
         ))}
       </div>
 
-      {/* 6) Description (standalone container) */}
+      {/* Description (glass block) */}
       <div className="glassBlock glassDescription">
         <textarea className="desc" placeholder="Add a description of your event" />
+      </div>
+
+      <div className="moreToSay">
+        <span className="moreToSayText">More to say?</span>
+        <button className="newSectionBtn" type="button">
+          + New section
+        </button>
       </div>
     </div>
   );

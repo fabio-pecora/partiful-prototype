@@ -13,7 +13,23 @@ export function Topbar() {
         </button>
       </div>
 
-      <div className="topNav">Home</div>
+      <div className="topNav">
+        <button className="navPill" type="button">
+          Home
+        </button>
+        <button className="navIcon" type="button" aria-label="Help">
+          ?
+        </button>
+        <button className="navIcon" type="button" aria-label="Messages">
+          💬
+        </button>
+        <button className="navIcon" type="button" aria-label="Notifications">
+          🔔
+        </button>
+        <button className="navAvatar" type="button" aria-label="Account">
+          <span className="navAvatarDot" />
+        </button>
+      </div>
     </header>
   );
 }
