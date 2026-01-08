@@ -42,7 +42,6 @@ body {
   background-color: #08031a;
 }
 
-
 /* Moving color waves + bokeh blobs */
 body::before {
   content: "";
@@ -141,7 +140,7 @@ body::after {
   position: fixed;
   inset: -28%;
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
 
   background-image:
     /* pink particles */
@@ -178,6 +177,68 @@ body::after {
     background-position: 180px 120px, 20px 40px, 260px 190px, 40px 24px;
   }
 }
+
+.bgBubbles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+/* Make sure UI is above bubbles */
+.topbar { z-index: 5; }
+.canvas { z-index: 4; }
+.railFixed { z-index: 6; }
+.saveDraft { z-index: 7; }
+
+.bgBubble {
+  position: absolute;
+  border-radius: 999px;
+
+  /* Pink, purple, blue via --hue */
+  background:
+    radial-gradient(circle at 30% 28%,
+      hsla(var(--hue), 95%, 82%, 0.34),
+      hsla(var(--hue), 95%, 70%, 0.16) 34%,
+      hsla(var(--hue), 95%, 60%, 0.00) 64%
+    ),
+    radial-gradient(circle at 72% 76%,
+      hsla(calc(var(--hue) - 20), 95%, 70%, 0.26),
+      hsla(calc(var(--hue) - 45), 95%, 62%, 0.14) 44%,
+      hsla(calc(var(--hue) - 70), 95%, 58%, 0.00) 78%
+    );
+
+  opacity: var(--bubbleOpacity);
+  filter: blur(var(--bubbleBlur));
+  mix-blend-mode: screen;
+
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+
+  animation-name: bubbleDriftA, bubbleDriftB, bubblePulse;
+  animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite, infinite;
+  animation-direction: alternate, alternate, alternate;
+}
+
+@keyframes bubbleDriftA {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(var(--dx), calc(var(--dy) * 0.6), 0); }
+}
+
+@keyframes bubbleDriftB {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(calc(var(--dx) * -0.55), var(--dy), 0); }
+}
+
+@keyframes bubblePulse {
+  0% { transform: translate3d(0, 0, 0) scale(0.90); }
+  50% { transform: translate3d(0, 0, 0) scale(1.12); }
+  100% { transform: translate3d(0, 0, 0) scale(0.96); }
+}
+
+
 
 .app {
   height: 100vh;
@@ -640,8 +701,6 @@ body::after {
   gap: 14px;
 }
 
-
-
 /* Cover section should look like a pure image area: no inner margins, no inner borders */
 .coverCardTight {
   padding: 0;
@@ -662,7 +721,6 @@ body::after {
   background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1), transparent 55%),
     linear-gradient(135deg, rgba(12, 12, 12, 1), rgba(0, 0, 0, 1));
 }
-
 
 .coverText {
   font-family: Space Grotesk, Inter;
