@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-const PORT = Number(process.env.PORT || 5174);
+const PORT = Number(process.env.PORT || 5179);
 
 const apiKey = process.env.OPENAI_API_KEY;
 if (!apiKey) {

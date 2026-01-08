@@ -268,7 +268,7 @@ export function PreviewPanel() {
     setAiLoading(true);
 
     try {
-      const resp = await fetch("http://localhost:5174/api/generate-cover", {
+      const resp = await fetch("http://localhost:5179/api/generate-cover", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
