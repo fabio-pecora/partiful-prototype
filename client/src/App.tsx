@@ -7,7 +7,7 @@ import { BackgroundBubbles } from "./components/BackgroundBubbles";
 export default function App() {
   return (
     <div className="app">
-      <BackgroundBubbles count={14} />
+      <BackgroundBubbles count={22} />
 
       <Topbar />
 

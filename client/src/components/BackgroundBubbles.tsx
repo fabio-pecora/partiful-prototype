@@ -26,31 +26,32 @@ function mulberry32(seed: number) {
   };
 }
 
-export function BackgroundBubbles({ count = 14 }: { count?: number }) {
+export function BackgroundBubbles({ count = 26 }: { count?: number }) {
   const bubbles = useMemo(() => {
     const rnd = mulberry32(1337);
     const arr: BubbleSpec[] = [];
 
     for (let i = 0; i < count; i++) {
-      const size = Math.round(140 + rnd() * 260); // 140..400
+      const size = Math.round(90 + rnd() * 220); // 90..310 smaller so more fit
       const left = rnd() * 100;
       const top = rnd() * 100;
 
-      const dx = Math.round((rnd() * 2 - 1) * 180); // -180..180
-      const dy = Math.round((rnd() * 2 - 1) * 140); // -140..140
+      const dx = Math.round((rnd() * 2 - 1) * 220); // -220..220
+      const dy = Math.round((rnd() * 2 - 1) * 170); // -170..170
 
-      const drift = 18 + rnd() * 28; // 18..46
-      const drift2 = 22 + rnd() * 34; // 22..56
-      const pulse = 7 + rnd() * 9; // 7..16
-      const delay = -rnd() * 20;
+      const drift = 20 + rnd() * 34; // 20..54
+      const drift2 = 24 + rnd() * 40; // 24..64
+      const pulse = 7 + rnd() * 10; // 7..17
+      const delay = -rnd() * 24;
 
-      const opacity = 0.18 + rnd() * 0.26; // 0.18..0.44 visible
-      const blur = rnd() * 1.2; // 0..1.2
+      // keep opacity but a bit stronger so colors read
+      const opacity = 0.22 + rnd() * 0.30; // 0.22..0.52
+      const blur = rnd() * 1.0; // 0..1.0
 
-      // Pink, purple, blue ranges
-      const hueBuckets = [320, 285, 245]; // pink, purple, blue
+      // pink, purple, blue with variation
+      const hueBuckets = [322, 292, 246];
       const baseHue = hueBuckets[Math.floor(rnd() * hueBuckets.length)];
-      const hue = baseHue + (rnd() * 18 - 9); // small variation
+      const hue = baseHue + (rnd() * 22 - 11);
 
       arr.push({
         id: `b_${i}`,

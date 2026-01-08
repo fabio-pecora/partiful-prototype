@@ -198,16 +198,17 @@ body::after {
 
   /* Pink, purple, blue via --hue */
   background:
-    radial-gradient(circle at 30% 28%,
-      hsla(var(--hue), 95%, 82%, 0.34),
-      hsla(var(--hue), 95%, 70%, 0.16) 34%,
-      hsla(var(--hue), 95%, 60%, 0.00) 64%
-    ),
-    radial-gradient(circle at 72% 76%,
-      hsla(calc(var(--hue) - 20), 95%, 70%, 0.26),
-      hsla(calc(var(--hue) - 45), 95%, 62%, 0.14) 44%,
-      hsla(calc(var(--hue) - 70), 95%, 58%, 0.00) 78%
-    );
+  radial-gradient(circle at 30% 28%,
+    hsla(var(--hue), 100%, 86%, 0.46),
+    hsla(var(--hue), 100%, 72%, 0.26) 34%,
+    hsla(var(--hue), 100%, 60%, 0.00) 64%
+  ),
+  radial-gradient(circle at 72% 76%,
+    hsla(calc(var(--hue) - 18), 100%, 72%, 0.38),
+    hsla(calc(var(--hue) - 42), 100%, 64%, 0.22) 44%,
+    hsla(calc(var(--hue) - 66), 100%, 56%, 0.00) 78%
+  );
+
 
   opacity: var(--bubbleOpacity);
   filter: blur(var(--bubbleBlur));
