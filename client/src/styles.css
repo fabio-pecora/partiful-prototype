@@ -239,6 +239,21 @@ body::after {
   100% { transform: translate3d(0, 0, 0) scale(0.96); }
 }
 
+.bgWaves {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3; /* above bubbles, below UI */
+  opacity: 0.85;
+  mix-blend-mode: screen;
+  filter: blur(0.2px) saturate(1.25);
+}
+
+/* make sure your UI stays above */
+.topbar { z-index: 6; position: relative; }
+.canvas { z-index: 5; position: relative; }
+.railFixed { z-index: 7; }
+.saveDraft { z-index: 8; }
 
 
 .app {
