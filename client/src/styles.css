@@ -728,6 +728,31 @@ body::after {
   gap: 14px;
 }
 
+/* Preview column background image (blurred, covers entire panel) */
+.previewWithBg {
+  position: relative;
+  overflow: hidden;
+}
+
+.previewWithBg::before {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--previewBgUrl);
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px) saturate(135%);
+  opacity: 0.42;
+  transform: scale(1.06);
+}
+
+.previewWithBg > * {
+  position: relative;
+  z-index: 1;
+}
+
 /* Cover section should look like a pure image area: no inner margins, no inner borders */
 .coverCardTight {
   padding: 0;
@@ -747,6 +772,23 @@ body::after {
   overflow: hidden;
   background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.1), transparent 55%),
     linear-gradient(135deg, rgba(12, 12, 12, 1), rgba(0, 0, 0, 1));
+}
+
+.coverImgPhoto {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 0;
+}
+
+.coverImgOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(600px 360px at 12% 18%, rgba(0, 0, 0, 0.18), transparent 60%),
+    radial-gradient(520px 420px at 78% 82%, rgba(0, 0, 0, 0.22), transparent 62%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.20));
 }
 
 .coverText {
@@ -772,6 +814,160 @@ body::after {
   border-radius: 999px;
   font-weight: 900;
   cursor: pointer;
+}
+
+.editPillOnImage {
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.editIcon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Image picker modal (cover edit) */
+.imgPickerModalCard {
+  width: min(860px, calc(100vw - 56px));
+  height: min(620px, calc(100vh - 120px));
+}
+
+.imgPicker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.imgPickerTop {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.imgSearch {
+  flex: 1;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.imgSearchIcon {
+  opacity: 0.75;
+}
+
+.imgSearchInput {
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
+}
+
+.imgUpload {
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.imgUpload:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.imgUploadIcon {
+  opacity: 0.85;
+}
+
+.imgChips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.imgChip {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.imgChip:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.imgTabs {
+  display: flex;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+.imgTab {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 900;
+  cursor: pointer;
+  padding: 6px 2px;
+}
+
+.imgTabActive {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.imgGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 6px;
+}
+
+.imgTile {
+  border: 0;
+  padding: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.imgTileActive {
+  border-color: rgba(124, 246, 199, 0.55);
+  box-shadow: 0 0 0 2px rgba(124, 246, 199, 0.18);
+}
+
+.imgTileImg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 560px) {
+  .imgGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* RSVP block */
@@ -1125,33 +1321,6 @@ body::after {
 
 .pModalBody {
   padding: 14px 16px 18px;
-}
-
-.locationSearchRow {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  gap: 10px;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  padding: 10px 12px;
-}
-
-.locationSearchIcon {
-  opacity: 0.75;
-}
-
-.locationSearchInput {
-  border: 0;
-  outline: none;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 14px;
-}
-
-.locationEmpty {
-  height: 360px;
 }
 
 /* Right drawer */

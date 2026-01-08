@@ -7,11 +7,13 @@ export function Modal({
   title,
   onClose,
   children,
+  cardClassName,
 }: {
   open: boolean;
   title: string;
   onClose: () => void;
   children: React.ReactNode;
+  cardClassName?: string;
 }) {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,7 +43,13 @@ export function Modal({
 
   return createPortal(
     <div className="pModalBackdrop" role="presentation">
-      <div className="pModalCard" role="dialog" aria-modal="true" aria-label={title} ref={cardRef}>
+      <div
+        className={cardClassName ? `pModalCard ${cardClassName}` : "pModalCard"}
+        role="dialog"
+        aria-modal="true"
+        aria-label={title}
+        ref={cardRef}
+      >
         <div className="pModalHeader">
           <button className="pModalX" type="button" onClick={onClose} aria-label="close">
             ×
