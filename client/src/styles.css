@@ -248,15 +248,16 @@ body::after {
   100% { transform: translate3d(0, 0, 0) scale(0.96); }
 }
 
-.bgWaves {
+.bgFXCanvas {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 3;
-  opacity: 1;
+  z-index: 3; /* above bubbles (2), below UI (5+) */
   mix-blend-mode: screen;
-  filter: saturate(1.25);
+  opacity: 0.95;
+  filter: saturate(1.35) contrast(1.05);
 }
+
 
 
 /* make sure your UI stays above */
