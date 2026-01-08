@@ -59,3 +59,5 @@ server/dist/
 # Misc
 # =========================
 coverage/
+
+.env
