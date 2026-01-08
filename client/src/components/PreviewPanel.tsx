@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import { Modal } from "./Modal";
 
-type GalleryTab = "Posters" | "GIFs" | "Photos";
+type GalleryTab = "Posters" | "GIFs";
 
 type GalleryItem = {
   id: string;
@@ -25,83 +25,31 @@ const CATEGORY_CHIPS = [
   "College",
 ];
 
-// Placeholders so your UI looks like the reference.
-// Replace with your own hosted images whenever you want.
+// ===== LOCAL ASSETS =====
+
+// Posters
+import poster1 from "../assets/covers/posters/poster1.webp";
+import poster2 from "../assets/covers/posters/poster2.jpg";
+import poster3 from "../assets/covers/posters/poster3.webp";
+
+// GIFs
+import gif1 from "../assets/covers/gifs/gif1.gif";
+import gif2 from "../assets/covers/gifs/gif2.gif";
+import gif3 from "../assets/covers/gifs/gif3.gif";
+
+
+// ===== GALLERY =====
+
 const GALLERY: GalleryItem[] = [
-  {
-    id: "poster_movie_awards",
-    group: "Posters",
-    alt: "Movie awards",
-    src: "https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "poster_capricorn",
-    group: "Posters",
-    alt: "Capricorn",
-    src: "https://images.unsplash.com/photo-1519682577862-22b62b24e493?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "poster_cake",
-    group: "Posters",
-    alt: "Birthday cake",
-    src: "https://images.unsplash.com/photo-1542826438-70020410a6a9?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "poster_star",
-    group: "Posters",
-    alt: "Star",
-    src: "https://images.unsplash.com/photo-1522098543979-ffc7f79d5af5?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "poster_clock",
-    group: "Posters",
-    alt: "Clock",
-    src: "https://images.unsplash.com/photo-1501139083538-0139583c060f?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "poster_neon",
-    group: "Posters",
-    alt: "Neon",
-    src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1200&q=80",
-  },
+  // Posters
+  { id: "poster1", group: "Posters", alt: "Poster 1", src: poster1 },
+  { id: "poster2", group: "Posters", alt: "Poster 2", src: poster2 },
+  { id: "poster3", group: "Posters", alt: "Poster 3", src: poster3 },
 
-  {
-    id: "gif_glitter",
-    group: "GIFs",
-    alt: "Glitter",
-    src: "https://media.giphy.com/media/3o7aD2saalBwwftBIY/giphy.gif",
-  },
-  {
-    id: "gif_confetti",
-    group: "GIFs",
-    alt: "Confetti",
-    src: "https://media.giphy.com/media/l0HlQ7LRalQqdWfao/giphy.gif",
-  },
-  {
-    id: "gif_party",
-    group: "GIFs",
-    alt: "Party lights",
-    src: "https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif",
-  },
-
-  {
-    id: "photo_cards",
-    group: "Photos",
-    alt: "Cards",
-    src: "https://images.unsplash.com/photo-1524519995226-23c56417d8a6?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "photo_pattern",
-    group: "Photos",
-    alt: "Pattern",
-    src: "https://images.unsplash.com/photo-1526401485004-2fda9f6a1d6a?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "photo_street",
-    group: "Photos",
-    alt: "Street",
-    src: "https://images.unsplash.com/photo-1520975682031-a9c0a02b6b21?auto=format&fit=crop&w=1200&q=80",
-  },
+  // GIFs
+  { id: "gif1", group: "GIFs", alt: "GIF 1", src: gif1 },
+  { id: "gif2", group: "GIFs", alt: "GIF 2", src: gif2 },
+  { id: "gif3", group: "GIFs", alt: "GIF 3", src: gif3 },
 ];
 
 export function PreviewPanel() {
@@ -134,7 +82,11 @@ export function PreviewPanel() {
         >
           <div className="coverImgOverlay" />
 
-          <button className="editPill editPillOnImage" type="button" onClick={() => setEditOpen(true)}>
+          <button
+            className="editPill editPillOnImage"
+            type="button"
+            onClick={() => setEditOpen(true)}
+          >
             <span className="editIcon">✎</span> Edit
           </button>
         </div>
@@ -153,21 +105,21 @@ export function PreviewPanel() {
         </div>
 
         <div className="rsvpBody">
-          <button className="rsvpOption" type="button" aria-label="Going">
+          <button className="rsvpOption" type="button">
             <div className="rsvpCircle">
               <span className="rsvpEmoji">👍</span>
             </div>
             <div className="rsvpLabel">Going</div>
           </button>
 
-          <button className="rsvpOption" type="button" aria-label="Maybe">
+          <button className="rsvpOption" type="button">
             <div className="rsvpCircle">
               <span className="rsvpEmoji">🤔</span>
             </div>
             <div className="rsvpLabel">Maybe</div>
           </button>
 
-          <button className="rsvpOption" type="button" aria-label="Can't Go">
+          <button className="rsvpOption" type="button">
             <div className="rsvpCircle">
               <span className="rsvpEmoji">😢</span>
             </div>
@@ -191,7 +143,6 @@ export function PreviewPanel() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Find an image..."
-                aria-label="Find an image"
               />
             </div>
 
@@ -200,7 +151,7 @@ export function PreviewPanel() {
             </button>
           </div>
 
-          <div className="imgChips" aria-label="Categories">
+          <div className="imgChips">
             {CATEGORY_CHIPS.map((c) => (
               <button key={c} type="button" className="imgChip">
                 {c}
@@ -208,40 +159,31 @@ export function PreviewPanel() {
             ))}
           </div>
 
-          <div className="imgTabs" role="tablist" aria-label="Tabs">
-            {(["Posters", "GIFs", "Photos"] as GalleryTab[]).map((t) => (
+          <div className="imgTabs">
+            {(["Posters", "GIFs"] as GalleryTab[]).map((t) => (
               <button
                 key={t}
-                type="button"
                 className={t === tab ? "imgTab imgTabActive" : "imgTab"}
                 onClick={() => setTab(t)}
-                role="tab"
-                aria-selected={t === tab}
               >
                 {t}
               </button>
             ))}
           </div>
 
-          <div className="imgGrid" role="list" aria-label="Images">
-            {visibleItems.map((it) => {
-              const active = it.id === selected.id;
-              return (
-                <button
-                  key={it.id}
-                  type="button"
-                  className={active ? "imgTile imgTileActive" : "imgTile"}
-                  onClick={() => {
-                    setSelected(it);
-                    setEditOpen(false);
-                  }}
-                  role="listitem"
-                  aria-label={it.alt}
-                >
-                  <img className="imgTileImg" src={it.src} alt={it.alt} loading="lazy" />
-                </button>
-              );
-            })}
+          <div className="imgGrid">
+            {visibleItems.map((it) => (
+              <button
+                key={it.id}
+                className={it.id === selected.id ? "imgTile imgTileActive" : "imgTile"}
+                onClick={() => {
+                  setSelected(it);
+                  setEditOpen(false);
+                }}
+              >
+                <img className="imgTileImg" src={it.src} alt={it.alt} />
+              </button>
+            ))}
           </div>
         </div>
       </Modal>
